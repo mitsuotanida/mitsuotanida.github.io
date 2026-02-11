@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portafolio | Mit</title>
-  <meta name="description" content="Portafolio de proyectos: datos, software, automatización, análisis y más." />
+  <meta name="description" content="Portafolio de dashboards y analítica: proyectos reales, impacto y ejecución." />
   <link rel="stylesheet" href="estilos.css" />
 </head>
 
@@ -32,17 +32,16 @@
       <div class="hero__grid">
         <!-- Columna izquierda -->
         <div class="hero__content">
-          <div class="badge">Portafolio escalable de proyectos</div>
+          <div class="badge">Portafolio de Dashboards</div>
 
           <h1 class="h1">
-            Construyo proyectos que <br />
-            resuelven problemas reales.
+            Dashboards que <br />
+            ayudan a tomar decisiones.
           </h1>
 
           <p class="lead">
-            Aquí vas a encontrar proyectos de <strong>datos</strong>, <strong>software</strong>,
-            <strong>automatización</strong> y <strong>análisis</strong>. La idea: mostrar impacto,
-            claridad y ejecución.
+            Selección curada de proyectos con foco en <strong>claridad ejecutiva</strong>,
+            <strong>seguridad</strong> y <strong>storytelling</strong>.
           </p>
 
           <div class="hero__cta">
@@ -53,21 +52,21 @@
           <!-- KPIs -->
           <div class="kpis">
             <div class="kpi">
-              <div class="kpi__n" id="kpiProyectos">—</div>
-              <div class="kpi__l">Proyectos</div>
+              <div class="kpi__n">4</div>
+              <div class="kpi__l">Dashboards</div>
             </div>
             <div class="kpi">
-              <div class="kpi__n" id="kpiTags">—</div>
-              <div class="kpi__l">Tags</div>
+              <div class="kpi__n">RLS</div>
+              <div class="kpi__l">Seguridad</div>
             </div>
             <div class="kpi">
-              <div class="kpi__n" id="kpiMostrando">—</div>
-              <div class="kpi__l">Mostrando</div>
+              <div class="kpi__n">UX</div>
+              <div class="kpi__l">Storytelling</div>
             </div>
           </div>
         </div>
 
-        <!-- Columna derecha: HIGHLIGHTS (Reemplaza "Cómo está armado") -->
+        <!-- Columna derecha: HIGHLIGHTS -->
         <div class="card card--hero">
           <h2 class="h2">Highlights</h2>
           <ul class="list">
@@ -79,9 +78,9 @@
 
           <div class="pillbox" aria-label="Tecnologías y foco">
             <span class="pill">Power BI</span>
+            <span class="pill">DAX</span>
+            <span class="pill">Modelado</span>
             <span class="pill">RLS</span>
-            <span class="pill">KPI</span>
-            <span class="pill">Storytelling</span>
           </div>
         </div>
       </div>
@@ -91,48 +90,112 @@
     <section id="proyectos" class="section">
       <div class="section__head">
         <h2 class="h2">Proyectos</h2>
-        <p class="muted">Buscá por nombre, descripción o filtrá por tags.</p>
+        <p class="muted">Selección curada de dashboards (demo / video).</p>
       </div>
 
-      <div class="filters">
-        <div id="tags" class="tags" aria-label="Filtros por tags"></div>
+      <div class="grid">
+        <!-- 1) Evaluación Docente -->
+        <article class="card project">
+          <div class="project__top">
+            <h3 class="h3">Evaluación Docente</h3>
+            <span class="pill">RLS</span>
+          </div>
+          <p class="muted">
+            Comparación inter-período, scoring compuesto, navegación y tooltips.
+            Datos anonimizados y accesos por rol.
+          </p>
+          <div class="project__links">
+            <a class="btn btn--sm" href="TU_LINK_DEMO_EVALUACION" target="_blank" rel="noreferrer">Ver demo</a>
+            <a class="btn btn--sm btn--ghost" href="assets/evaluacion-docente.mp4" target="_blank" rel="noreferrer">Ver video</a>
+          </div>
+        </article>
 
-        <div class="search">
-          <input id="search" type="search" placeholder="Buscar proyectos..." autocomplete="off" />
-          <button id="clear" class="btn btn--sm btn--ghost" type="button">Limpiar</button>
-        </div>
+        <!-- 2) Alertas Tempranas -->
+        <article class="card project">
+          <div class="project__top">
+            <h3 class="h3">Alertas Tempranas</h3>
+            <span class="pill">Acción</span>
+          </div>
+          <p class="muted">
+            Identificación de riesgo académico, seguimiento y priorización.
+            Enfoque en toma de acción por directivos.
+          </p>
+          <div class="project__links">
+            <a class="btn btn--sm" href="TU_LINK_DEMO_ALERTAS" target="_blank" rel="noreferrer">Ver demo</a>
+            <a class="btn btn--sm btn--ghost" href="assets/alertas-tempranas.mp4" target="_blank" rel="noreferrer">Ver video</a>
+          </div>
+        </article>
+
+        <!-- 3) Caracterización Inicial -->
+        <article class="card project">
+          <div class="project__top">
+            <h3 class="h3">Caracterización Inicial</h3>
+            <span class="pill">Perfil</span>
+          </div>
+          <p class="muted">
+            Perfil de ingreso: segmentación, brechas y lectura ejecutiva.
+            Modelo robusto para comparar cohortes.
+          </p>
+          <div class="project__links">
+            <a class="btn btn--sm" href="TU_LINK_DEMO_CARACTERIZACION" target="_blank" rel="noreferrer">Ver demo</a>
+            <a class="btn btn--sm btn--ghost" href="assets/caracterizacion-inicial.mp4" target="_blank" rel="noreferrer">Ver video</a>
+          </div>
+        </article>
+
+        <!-- 4) Finanzas Personales -->
+        <article class="card project">
+          <div class="project__top">
+            <h3 class="h3">Finanzas Personales (Automatizado)</h3>
+            <span class="pill">Automatización</span>
+          </div>
+          <p class="muted">
+            Pipeline automático: una app lee correos del banco, guarda en hoja de cálculo
+            y Power BI actualiza indicadores de gastos.
+          </p>
+          <div class="project__links">
+            <a class="btn btn--sm" href="TU_LINK_DEMO_FINANZAS" target="_blank" rel="noreferrer">Ver demo</a>
+            <a class="btn btn--sm btn--ghost" href="assets/finanzas.mp4" target="_blank" rel="noreferrer">Ver video</a>
+          </div>
+        </article>
       </div>
-
-      <div id="projects" class="grid" aria-label="Listado de proyectos"></div>
-      <div id="empty" class="empty" hidden>No hay proyectos que coincidan con el filtro.</div>
     </section>
 
     <!-- SOBRE MI -->
     <section id="sobre-mi" class="section">
       <div class="section__head">
         <h2 class="h2">Sobre mí</h2>
-        <p class="muted">Contexto rápido de lo que hago y cómo trabajo.</p>
+        <p class="muted">Analítica aplicada, modelado robusto y dashboards para decisión.</p>
       </div>
 
       <div class="about">
         <div class="card">
-          <h3 class="h3">Perfil</h3>
+          <h3 class="h3">Qué hago</h3>
           <p class="muted">
-            Analista de datos enfocado en analytics para educación superior, automatización y dashboards
-            orientados a decisión. Me importa la calidad de datos, el modelado y la UX.
+            Diseño dashboards ejecutivos, defino métricas, modelo datos y automatizo pipelines.
+            Me enfoco en claridad, performance, trazabilidad y seguridad (RLS).
           </p>
         </div>
 
         <div class="card">
-          <h3 class="h3">Fortalezas</h3>
+          <h3 class="h3">Stack</h3>
           <div class="pillbox">
-            <span class="pill">Modelado</span>
+            <span class="pill">Power BI</span>
             <span class="pill">DAX</span>
-            <span class="pill">ETL</span>
+            <span class="pill">Power Query</span>
             <span class="pill">Power Platform</span>
-            <span class="pill">Storytelling</span>
-            <span class="pill">Gov. de datos</span>
+            <span class="pill">R</span>
+            <span class="pill">ETL</span>
           </div>
+        </div>
+
+        <div class="card">
+          <h3 class="h3">Cómo trabajo</h3>
+          <ul class="list">
+            <li>🧭 Parto desde objetivos (qué decisión habilita el dashboard).</li>
+            <li>🧼 Aseguro calidad de datos y modelo (dimensiones/hechos).</li>
+            <li>⚡ Optimizo performance y UX (navegación, tooltips, lectura rápida).</li>
+            <li>🔐 Gobernanza: RLS, anonimización y control de acceso.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -141,7 +204,7 @@
     <section id="contacto" class="section">
       <div class="section__head">
         <h2 class="h2">Contacto</h2>
-        <p class="muted">Si quieres conversar, acá me encuentras.</p>
+        <p class="muted">Si te interesa conversar, acá me encuentras.</p>
       </div>
 
       <div class="card">
@@ -156,6 +219,7 @@
       </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="footer__inner">
         <span class="muted">© <span id="year"></span> Mit. Hecho con GitHub Pages.</span>
@@ -164,10 +228,8 @@
     </footer>
   </main>
 
-  <script src="app.js" defer></script>
   <script>
-    // Setea el año en el footer (para que se actualice solo) - sirve para no editarlo cada año
-    document.getElementById("year").textContent = new Date().getFullYear(); // Pone el año actual automáticamente
+    document.getElementById("year").textContent = new Date().getFullYear(); // Pone el año actual solo (sirve para no editarlo)
   </script>
 </body>
 </html>
