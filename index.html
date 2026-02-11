@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portafolio | Mitsuo</title>
+  <title>Portafolio | Mit</title>
   <meta name="description" content="Portafolio de proyectos: datos, software, automatización, análisis y más." />
   <link rel="stylesheet" href="estilos.css" />
 </head>
 
 <body>
+  <!-- TOPBAR -->
   <header class="topbar">
     <div class="wrap topbar__inner">
       <a class="brand" href="#inicio" aria-label="Ir al inicio">
@@ -20,20 +21,28 @@
         <a href="#proyectos">Proyectos</a>
         <a href="#sobre-mi">Sobre mí</a>
         <a href="#contacto">Contacto</a>
-        <button id="btnTema" class="btn btn--ghost" type="button" aria-label="Cambiar tema">Tema</button>
+        <button id="btnTema" class="btn btn--sm btn--ghost" type="button">Tema</button>
       </nav>
     </div>
   </header>
 
-  <main id="inicio">
+  <main id="inicio" class="wrap">
+    <!-- HERO -->
     <section class="hero">
-      <div class="wrap hero__grid">
-        <div>
-          <p class="badge">Portafolio de proyectos</p>
-          <h1 class="h1">Construyo proyectos que resuelven problemas reales.</h1>
+      <div class="hero__grid">
+        <!-- Columna izquierda -->
+        <div class="hero__content">
+          <div class="badge">Portafolio escalable de proyectos</div>
+
+          <h1 class="h1">
+            Construyo proyectos que <br />
+            resuelven problemas reales.
+          </h1>
+
           <p class="lead">
-            Aquí vas a encontrar proyectos de <strong>datos</strong>, <strong>software</strong>, <strong>automatización</strong> y
-            <strong>análisis</strong>.
+            Aquí vas a encontrar proyectos de <strong>datos</strong>, <strong>software</strong>,
+            <strong>automatización</strong> y <strong>análisis</strong>. La idea: mostrar impacto,
+            claridad y ejecución.
           </p>
 
           <div class="hero__cta">
@@ -41,88 +50,124 @@
             <a class="btn btn--ghost" href="#contacto">Contactarme</a>
           </div>
 
-          <div class="quick">
-            <div class="quick__item">
-              <div class="quick__kpi" id="kpiTotal">—</div>
-              <div class="quick__label">Proyectos</div>
+          <!-- KPIs -->
+          <div class="kpis">
+            <div class="kpi">
+              <div class="kpi__n" id="kpiProyectos">—</div>
+              <div class="kpi__l">Proyectos</div>
             </div>
-            <div class="quick__item">
-              <div class="quick__kpi" id="kpiTags">—</div>
-              <div class="quick__label">Tags</div>
+            <div class="kpi">
+              <div class="kpi__n" id="kpiTags">—</div>
+              <div class="kpi__l">Tags</div>
             </div>
-            <div class="quick__item">
-              <div class="quick__kpi" id="kpiFiltro">—</div>
-              <div class="quick__label">Mostrando</div>
+            <div class="kpi">
+              <div class="kpi__n" id="kpiMostrando">—</div>
+              <div class="kpi__l">Mostrando</div>
             </div>
           </div>
         </div>
 
-<div class="card card--hero">
-  <h2 class="h2">Highlights</h2>
-  <ul class="list">
-    <li>Comparación inter-período y lectura ejecutiva por facultad/escuela.</li>
-    <li>Scoring compuesto para priorización y foco en decisiones.</li>
-    <li>Seguridad con RLS (accesos por rol) y datos anonimizados.</li>
-    <li>Storytelling + navegación + tooltips (UX orientada a acción).</li>
-  </ul>
+        <!-- Columna derecha: HIGHLIGHTS (Reemplaza "Cómo está armado") -->
+        <div class="card card--hero">
+          <h2 class="h2">Highlights</h2>
+          <ul class="list">
+            <li>📌 Comparación inter-período y lectura ejecutiva por facultad/escuela.</li>
+            <li>🧮 Scoring compuesto para priorización y foco en decisiones.</li>
+            <li>🔐 Seguridad con RLS (accesos por rol) y datos anonimizados.</li>
+            <li>🧭 Storytelling + navegación + tooltips (UX orientada a acción).</li>
+          </ul>
 
-  <div class="pillbox">
-    <span class="pill">Power BI</span>
-    <span class="pill">RLS</span>
-    <span class="pill">KPI</span>
-    <span class="pill">Storytelling</span>
-  </div>
-</div>
-
-    </section>
-
-    <section id="sobre-mi" class="section section--alt">
-      <div class="wrap about">
-        <div class="card">
-          <h2 class="h2">Sobre mí</h2>
-          <p>
-            Soy <strong>Mitsuo Tanida</strong> y me gusta construir soluciones con datos y tecnología.
-            Soy Ingeniero Civil Industrial, Msc en Estadsítsicas y apasionado por las nuevas tecnologías
-          </p>
-          <p class="muted">
-            Tip: cada proyecto debería tener: Problema → Solución → Stack → Resultado (si hay métrica, mejor).
-          </p>
-        </div>
-
-        <div class="card">
-          <h2 class="h2">Stack / Herramientas</h2>
-          <div class="pillbox" id="stackPills"></div>
+          <div class="pillbox" aria-label="Tecnologías y foco">
+            <span class="pill">Power BI</span>
+            <span class="pill">RLS</span>
+            <span class="pill">KPI</span>
+            <span class="pill">Storytelling</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="contacto" class="section">
-      <div class="wrap">
+    <!-- PROYECTOS -->
+    <section id="proyectos" class="section">
+      <div class="section__head">
+        <h2 class="h2">Proyectos</h2>
+        <p class="muted">Buscá por nombre, descripción o filtrá por tags.</p>
+      </div>
+
+      <div class="filters">
+        <div id="tags" class="tags" aria-label="Filtros por tags"></div>
+
+        <div class="search">
+          <input id="search" type="search" placeholder="Buscar proyectos..." autocomplete="off" />
+          <button id="clear" class="btn btn--sm btn--ghost" type="button">Limpiar</button>
+        </div>
+      </div>
+
+      <div id="projects" class="grid" aria-label="Listado de proyectos"></div>
+      <div id="empty" class="empty" hidden>No hay proyectos que coincidan con el filtro.</div>
+    </section>
+
+    <!-- SOBRE MI -->
+    <section id="sobre-mi" class="section">
+      <div class="section__head">
+        <h2 class="h2">Sobre mí</h2>
+        <p class="muted">Contexto rápido de lo que hago y cómo trabajo.</p>
+      </div>
+
+      <div class="about">
         <div class="card">
-          <h2 class="h2">Contacto</h2>
-          <p class="muted">Dejá tus links aquí y listo (después los reemplazás).</p>
-
-          <div class="contact">
-            <a class="btn" id="lnkEmail" href="#">Email</a>
-            <a class="btn btn--ghost" id="lnkLinkedIn" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a class="btn btn--ghost" id="lnkGitHub" href="#" target="_blank" rel="noreferrer">GitHub</a>
-          </div>
-
-          <p class="tiny muted">
-            Publicación: GitHub → Settings → Pages → Deploy from branch (main / root).
+          <h3 class="h3">Perfil</h3>
+          <p class="muted">
+            Analista de datos enfocado en analytics para educación superior, automatización y dashboards
+            orientados a decisión. Me importa la calidad de datos, el modelado y la UX.
           </p>
         </div>
+
+        <div class="card">
+          <h3 class="h3">Fortalezas</h3>
+          <div class="pillbox">
+            <span class="pill">Modelado</span>
+            <span class="pill">DAX</span>
+            <span class="pill">ETL</span>
+            <span class="pill">Power Platform</span>
+            <span class="pill">Storytelling</span>
+            <span class="pill">Gov. de datos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="section">
+      <div class="section__head">
+        <h2 class="h2">Contacto</h2>
+        <p class="muted">Si quieres conversar, acá me encuentras.</p>
+      </div>
+
+      <div class="card">
+        <div class="links">
+          <a class="link" href="mailto:TU_CORREO@DOMINIO.COM">📧 Email</a>
+          <a class="link" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">💼 LinkedIn</a>
+          <a class="link" href="https://github.com/mitsuotanida" target="_blank" rel="noreferrer">💻 GitHub</a>
+        </div>
+        <p class="muted" style="margin-top: 10px;">
+          *Reemplaza el correo y links por los tuyos.
+        </p>
       </div>
     </section>
 
     <footer class="footer">
-      <div class="wrap footer__inner">
-        <span class="muted">© <span id="year"></span> Mit — Portafolio de Proyectos</span>
-        <a class="muted" href="#inicio">Volver arriba</a>
+      <div class="footer__inner">
+        <span class="muted">© <span id="year"></span> Mit. Hecho con GitHub Pages.</span>
+        <a class="link" href="#inicio">Volver arriba ↑</a>
       </div>
     </footer>
   </main>
 
   <script src="app.js" defer></script>
+  <script>
+    // Setea el año en el footer (para que se actualice solo) - sirve para no editarlo cada año
+    document.getElementById("year").textContent = new Date().getFullYear(); // Pone el año actual automáticamente
+  </script>
 </body>
 </html>
