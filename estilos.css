@@ -207,3 +207,4 @@ code{ font-family: var(--mono); font-size: .95em; }
   padding: 18px 0;
 }
 .footer__inner{ display:flex; justify-content:space-between; gap: 12px; flex-wrap: wrap; }
+.card--hero { display: none; } /* Oculta esa tarjeta (sirve para sacar el cuadro sin borrar el HTML) */
