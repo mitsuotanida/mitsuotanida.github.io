@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portafolio | Mitsuo</title>
+  <meta name="description" content="Portafolio de proyectos: datos, software, automatización, análisis y más." />
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+        <span class="brand__dot"></span>
+        <span class="brand__text">Mi Portafolio</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#proyectos">Proyectos</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#contacto">Contacto</a>
+        <button id="btnTema" class="btn btn--ghost" type="button" aria-label="Cambiar tema">Tema</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div>
+          <p class="badge">Portafolio escalable de proyectos</p>
+          <h1 class="h1">Construyo proyectos que resuelven problemas reales.</h1>
+          <p class="lead">
+            Aquí vas a encontrar proyectos de <strong>datos</strong>, <strong>software</strong>, <strong>automatización</strong> y
+            <strong>análisis</strong>. La idea: mostrar impacto, claridad y ejecución.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn" href="#proyectos">Ver proyectos</a>
+            <a class="btn btn--ghost" href="#contacto">Contactarme</a>
+          </div>
+
+          <div class="quick">
+            <div class="quick__item">
+              <div class="quick__kpi" id="kpiTotal">—</div>
+              <div class="quick__label">Proyectos</div>
+            </div>
+            <div class="quick__item">
+              <div class="quick__kpi" id="kpiTags">—</div>
+              <div class="quick__label">Tags</div>
+            </div>
+            <div class="quick__item">
+              <div class="quick__kpi" id="kpiFiltro">—</div>
+              <div class="quick__label">Mostrando</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card--hero">
+          <h2 class="h2">Cómo está armado</h2>
+          <ul class="list">
+            <li>📦 Tus proyectos viven en <code>app.js</code> (una lista).</li>
+            <li>🔎 Buscador + filtro por tags.</li>
+            <li>🧩 Cada proyecto es una “tarjeta” consistente.</li>
+            <li>🚀 Listo para publicar en GitHub Pages.</li>
+          </ul>
+          <p class="muted">Después solo agregás proyectos y listo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos" class="section">
+      <div class="wrap">
+        <div class="section__head">
+          <div>
+            <h2 class="h2">Proyectos</h2>
+            <p class="muted">Buscá por nombre, descripción o filtrá por tags.</p>
+          </div>
+
+          <div class="controls">
+            <input id="txtBuscar" class="input" type="search" placeholder="Buscar proyectos…" autocomplete="off" />
+            <button id="btnLimpiar" class="btn btn--ghost" type="button">Limpiar</button>
+          </div>
+        </div>
+
+        <div class="tags" id="tagContainer" aria-label="Filtros por tags"></div>
+
+        <div class="grid" id="projectGrid" aria-live="polite"></div>
+
+        <div class="empty" id="emptyState" hidden>
+          <p>No encontré proyectos con ese filtro 😅 Probá con otro tag o borrá la búsqueda.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre-mi" class="section section--alt">
+      <div class="wrap about">
+        <div class="card">
+          <h2 class="h2">Sobre mí</h2>
+          <p>
+            Soy <strong>Mit</strong> y me gusta construir soluciones con datos y tecnología.
+            Este portafolio está pensado para escalar: hoy mostrás 6 proyectos, mañana 30.
+          </p>
+          <p class="muted">
+            Tip: cada proyecto debería tener: Problema → Solución → Stack → Resultado (si hay métrica, mejor).
+          </p>
+        </div>
+
+        <div class="card">
+          <h2 class="h2">Stack / Herramientas</h2>
+          <div class="pillbox" id="stackPills"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="section">
+      <div class="wrap">
+        <div class="card">
+          <h2 class="h2">Contacto</h2>
+          <p class="muted">Dejá tus links aquí y listo (después los reemplazás).</p>
+
+          <div class="contact">
+            <a class="btn" id="lnkEmail" href="#">Email</a>
+            <a class="btn btn--ghost" id="lnkLinkedIn" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn btn--ghost" id="lnkGitHub" href="#" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+
+          <p class="tiny muted">
+            Publicación: GitHub → Settings → Pages → Deploy from branch (main / root).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap footer__inner">
+        <span class="muted">© <span id="year"></span> Mit — Portafolio de Proyectos</span>
+        <a class="muted" href="#inicio">Volver arriba</a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
