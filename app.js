@@ -1,251 +1,73 @@
-// ======================
-// 1) CONFIGURACIÓN BÁSICA
-// ======================
+// Estado simple de la app (guarda el tema y lo que está pasando).
+const state = { // Guarda datos en memoria para que la web sepa “en qué estado está”.
+  theme: localStorage.getItem("theme") || "dark", // Recuerda el tema aunque cierres el navegador (sirve para comodidad del usuario).
+}; // Fin del objeto: acá guardamos configuración básica.
 
-const profile = {
-  name: "Mitsuo",
-  email: "mtanidab@gmail.com",
-  linkedin: "https://www.linkedin.com/in/mitsuotanida/",
-  github: "https://github.com/mitsuotanida",
-  stack: ["Python", "SQL", "Power BI", "R", "Power Automate", "Estadística"],
-}; // Este objeto es tu “tarjeta de identidad”: sirve para mostrar tus links y tu stack sin tocar el HTML.
+const dom = { // Acá guardamos “atajos” a cosas del HTML para usarlas fácil desde JS.
+  btnTema: document.getElementById("btnTema"), // Botón que cambia el tema (sirve para modo claro/oscuro).
+  modal: document.getElementById("videoModal"), // Contenedor del modal (sirve para mostrar el video encima).
+  modalTitle: document.getElementById("modalTitle"), // Título del modal (sirve para poner el nombre del proyecto).
+  modalVideo: document.getElementById("modalVideo"), // Etiqueta <video> (sirve para reproducir el mp4).
+  modalSource: document.getElementById("modalSource"), // <source> del video (sirve para cambiar el archivo mp4).
+  openButtons: document.querySelectorAll("[data-open-video]"), // Todos los botones “Ver demo” (sirve para abrir el modal con el video correcto).
+}; // Fin del objeto: son referencias a elementos del DOM.
 
-const projects = [
-  {
-    id: "proj-001",
-    title: "Dashboard de Calidad Académica",
-    year: 2026,
-    type: "Datos",
-    tags: ["data", "dashboard", "kpi", "etl"],
-    summary: "Modelo de indicadores + pipeline de datos + visualización para seguimiento y toma de decisiones.",
-    impact: "Reducción de tiempos de reportería y mejor visibilidad de alertas y tendencias.",
-    links: {
-      demo: "#",
-      repo: "#",
-    },
-  }, // Proyecto 1: cada objeto representa una tarjeta. Solo lo duplicás y cambiás datos para sumar proyectos.
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme); // Cambia variables CSS según tema (sirve para look & feel).
+  state.theme = theme; // Guardamos el tema actual (sirve para saber qué viene después).
+  localStorage.setItem("theme", theme); // Lo guardamos en el navegador (sirve para que quede igual la próxima vez).
+}
 
-  {
-    id: "proj-002",
-    title: "Automatización de Ingesta (Email → Dataset)",
-    year: 2026,
-    type: "Automatización",
-    tags: ["automation", "etl", "power-platform"],
-    summary: "Flujo para recibir archivos por correo, validar estructura y actualizar el dataset automáticamente.",
-    impact: "Menos trabajo manual y menos errores de carga.",
-    links: {
-      demo: "#",
-      repo: "#",
-    },
-  }, // Proyecto 2: mismo formato. Así mantenés consistencia y el portafolio escala fácil.
+function openModal({ title, src }) {
+  dom.modalTitle.textContent = title; // Pone el título del video (sirve para contexto).
+  dom.modalSource.src = src; // Cambia el archivo mp4 que se va a reproducir (sirve para mostrar el demo correcto).
+  dom.modalVideo.load(); // Le dice al navegador “recarga el video” (sirve para que tome el nuevo src).
+  dom.modal.classList.add("is-open"); // Muestra el modal (sirve para overlay).
+  dom.modal.setAttribute("aria-hidden", "false"); // Accesibilidad (sirve para lectores de pantalla).
+}
 
-  {
-    id: "proj-003",
-    title: "Simulación / Optimización de Procesos",
-    year: 2025,
-    type: "Analytics",
-    tags: ["simulation", "optimization", "statistics"],
-    summary: "Modelos para evaluar escenarios, riesgo y decisiones con enfoque cuantitativo.",
-    impact: "Mejor planificación y decisiones con evidencia.",
-    links: {
-      demo: "#",
-      repo: "#",
-    },
-  }, // Proyecto 3: podés mezclar temas (software, data, investigación, etc.) sin encasillarte.
-
-  {
-    id: "proj-004",
-    title: "Web Portafolio (GitHub Pages)",
-    year: 2026,
-    type: "Web",
-    tags: ["web", "frontend", "github-pages"],
-    summary: "Sitio estático ligero, con filtro por tags y buscador, diseñado para crecer.",
-    impact: "Presencia profesional y fácil actualización (agregar proyectos en 1 minuto).",
-    links: {
-      demo: "#",
-      repo: "#",
-    },
-  }, // Proyecto 4: este mismo sitio; después reemplazás los links con los reales.
-]; // Esta lista es tu “catálogo”: al agregar objetos aquí, se crean tarjetas automáticamente.
-
-// ======================
-// 2) ESTADO DE LA PÁGINA
-// ======================
-
-const state = {
-  query: "",
-  activeTag: "all",
-  theme: localStorage.getItem("theme") || "dark",
-}; // Este objeto guarda “cómo está la página ahora”: búsqueda, tag activo y tema.
-
-const dom = {
-  grid: document.getElementById("projectGrid"),
-  empty: document.getElementById("emptyState"),
-  tags: document.getElementById("tagContainer"),
-  search: document.getElementById("txtBuscar"),
-  clear: document.getElementById("btnLimpiar"),
-  btnTema: document.getElementById("btnTema"),
-  kpiTotal: document.getElementById("kpiTotal"),
-  kpiTags: document.getElementById("kpiTags"),
-  kpiFiltro: document.getElementById("kpiFiltro"),
-  year: document.getElementById("year"),
-  stackPills: document.getElementById("stackPills"),
-  lnkEmail: document.getElementById("lnkEmail"),
-  lnkLinkedIn: document.getElementById("lnkLinkedIn"),
-  lnkGitHub: document.getElementById("lnkGitHub"),
-}; // Este objeto es una “cajita de referencias”: guarda los elementos HTML para usarlos fácil.
-
-// ======================
-// 3) UTILIDADES (cosas pequeñas que ayudan)
-// ======================
-
-function escapeHtml(text) {
-  return String(text)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-} // Esto “limpia” texto para que no rompa el HTML: sirve para mostrar contenido seguro.
-
-function uniq(arr) {
-  return [...new Set(arr)];
-} // Esto saca repetidos: sirve para obtener tags únicos sin duplicados.
-
-function setTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
-  localStorage.setItem("theme", theme);
-  state.theme = theme;
-} // Esto cambia el modo oscuro/claro y lo guarda para la próxima vez.
-
-// ======================
-// 4) RENDER (dibujar la UI)
-// ======================
-
-function getAllTags() {
-  const all = projects.flatMap(p => p.tags);
-  return ["all", ...uniq(all).sort()];
-} // Junta todos los tags de todos los proyectos y arma una lista única.
-
-function renderTags() {
-  const tags = getAllTags();
-  dom.tags.innerHTML = tags.map(t => {
-    const active = t === state.activeTag ? "tag tag--active" : "tag";
-    const label = t === "all" ? "Todos" : t;
-    return `<button class="${active}" type="button" data-tag="${escapeHtml(t)}">${escapeHtml(label)}</button>`;
-  }).join("");
-} // Dibuja los botones de tags arriba de la grilla.
-
-function matchesFilters(p) {
-  const q = state.query.trim().toLowerCase();
-  const byQuery =
-    !q ||
-    p.title.toLowerCase().includes(q) ||
-    p.summary.toLowerCase().includes(q) ||
-    p.tags.some(t => t.toLowerCase().includes(q));
-
-  const byTag = state.activeTag === "all" || p.tags.includes(state.activeTag);
-
-  return byQuery && byTag;
-} // Decide si un proyecto se muestra o no, según búsqueda y tag.
-
-function renderProjects() {
-  const filtered = projects.filter(matchesFilters);
-
-  dom.grid.innerHTML = filtered.map(p => {
-    const title = escapeHtml(p.title);
-    const meta = `${escapeHtml(String(p.year))} · ${escapeHtml(p.type)}`;
-    const desc = escapeHtml(p.summary);
-    const impact = escapeHtml(p.impact);
-
-    const pills = p.tags.map(t => `<span class="pill">${escapeHtml(t)}</span>`).join("");
-    const demoLink = p.links.demo && p.links.demo !== "#" ? `<a class="link" href="${escapeHtml(p.links.demo)}" target="_blank" rel="noreferrer">Demo</a>` : "";
-    const repoLink = p.links.repo && p.links.repo !== "#" ? `<a class="link" href="${escapeHtml(p.links.repo)}" target="_blank" rel="noreferrer">Repo</a>` : "";
-
-    return `
-      <article class="project">
-        <div class="project__top">
-          <div>
-            <h3 class="project__title">${title}</h3>
-            <div class="project__meta">${meta}</div>
-          </div>
-        </div>
-
-        <p class="project__desc">${desc}</p>
-        <p class="project__desc"><strong>Impacto:</strong> ${impact}</p>
-
-        <div class="project__tags">${pills}</div>
-
-        <div class="project__links">
-          ${demoLink}
-          ${repoLink}
-        </div>
-      </article>
-    `;
-  }).join("");
-
-  dom.empty.hidden = filtered.length !== 0;
-  dom.kpiFiltro.textContent = String(filtered.length);
-} // Dibuja todas las tarjetas de proyecto y muestra “vacío” si no hay resultados.
-
-function renderProfile() {
-  dom.year.textContent = String(new Date().getFullYear());
-
-  dom.stackPills.innerHTML = profile.stack.map(s => `<span class="pill">${escapeHtml(s)}</span>`).join("");
-
-  dom.lnkEmail.href = `mailto:${profile.email}`;
-  dom.lnkLinkedIn.href = profile.linkedin;
-  dom.lnkGitHub.href = profile.github;
-} // Rellena el pie, el stack y los links sin tocar el HTML.
-
-function renderKpis() {
-  dom.kpiTotal.textContent = String(projects.length);
-  dom.kpiTags.textContent = String(getAllTags().length - 1);
-} // Actualiza numeritos (KPIs) para que se vea más “pro”.
-
-// ======================
-// 5) EVENTOS (interacción)
-// ======================
+function closeModal() {
+  dom.modal.classList.remove("is-open"); // Oculta el modal (sirve para volver a la página).
+  dom.modal.setAttribute("aria-hidden", "true"); // Accesibilidad (sirve para indicar que está cerrado).
+  dom.modalVideo.pause(); // Pausa el video (sirve para que no siga sonando/reproduciendo).
+  dom.modalSource.src = ""; // Limpia el src (sirve para evitar cache raro en algunos navegadores).
+  dom.modalVideo.load(); // Recarga vacío (sirve para “resetear”).
+}
 
 function wireEvents() {
-  dom.search.addEventListener("input", (e) => {
-    state.query = e.target.value || "";
-    renderProjects();
-  });
-
-  dom.clear.addEventListener("click", () => {
-    state.query = "";
-    dom.search.value = "";
-    state.activeTag = "all";
-    renderTags();
-    renderProjects();
-  });
-
-  dom.tags.addEventListener("click", (e) => {
-    const btn = e.target.closest("button[data-tag]");
-    if (!btn) return;
-    state.activeTag = btn.getAttribute("data-tag");
-    renderTags();
-    renderProjects();
-  });
-
+  // Botón de tema
   dom.btnTema.addEventListener("click", () => {
-    const next = state.theme === "dark" ? "light" : "dark";
-    setTheme(next);
+    const next = state.theme === "dark" ? "light" : "dark"; // Decide el próximo tema (sirve para alternar).
+    applyTheme(next);
   });
-} // Conecta botones e inputs: cuando tocás algo, se actualiza la página.
 
-// ======================
-// 6) INICIO
-// ======================
+  // Botones “Ver demo”
+  dom.openButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      openModal({
+        title: btn.getAttribute("data-title"), // Toma el título desde el HTML (sirve para no hardcodear).
+        src: btn.getAttribute("data-src"), // Toma la ruta del video desde el HTML (sirve para que sea escalable).
+      }); // Fin del objeto: le pasamos título y src al modal.
+    });
+  });
+
+  // Cerrar modal (click en backdrop o botón X)
+  dom.modal.addEventListener("click", (e) => {
+    const closeEl = e.target.closest("[data-close]"); // Busca si clickeaste algo que cierra (sirve para UX).
+    if (closeEl) closeModal();
+  });
+
+  // Cerrar con tecla ESC
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && dom.modal.classList.contains("is-open")) {
+      closeModal();
+    }
+  });
+}
 
 function init() {
-  setTheme(state.theme);
-  renderProfile();
-  renderKpis();
-  renderTags();
-  renderProjects();
-  wireEvents();
-} // Arranca todo en el orden correcto: tema → contenido → UI → eventos.
+  applyTheme(state.theme); // Aplica el tema guardado (sirve para que arranque como lo dejaste).
+  wireEvents(); // Conecta los botones (sirve para que la página reaccione).
+}
 
-init();
+init(); // Arranca todo (sirve para inicializar la app).
