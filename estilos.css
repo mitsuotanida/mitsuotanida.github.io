@@ -360,3 +360,50 @@ h1{
   .about{ grid-template-columns: 1fr; }
   .nav{ gap: 8px; }
 }
+/* ===== FIX: tarjetas prolijas + colores consistentes ===== */
+
+.card {
+  background: rgba(255, 255, 255, 0.06); /* fondo parejito y sobrio */
+  border: 1px solid rgba(255, 255, 255, 0.10); /* borde sutil */
+  border-radius: 18px; /* esquinas consistentes */
+  overflow: hidden; /* recorta overlays internos (CLAVE) */
+} /* Deja todas las tarjetas con el mismo look y evita que el blur/gradiente se escape. */
+
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0; /* que calce exacto dentro de la tarjeta */
+  border-radius: inherit; /* hereda el mismo redondeo */
+  pointer-events: none;
+} /* Esto fuerza a que cualquier “efecto” quede dentro de la tarjeta y no se corra. */
+
+.grid,
+.grid-2,
+.grid-3 {
+  align-items: stretch; /* todas las tarjetas a la misma altura visual */
+} /* Hace que las columnas se vean parejas aunque el texto sea distinto. */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+} /* Dos columnas robustas: evita desbordes raros. */
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+} /* Tres columnas robustas: mismas reglas, más estable. */
+
+@media (max-width: 980px) {
+  .grid-3 { grid-template-columns: 1fr; } /* móvil: una columna */
+  .grid-2 { grid-template-columns: 1fr; } /* móvil: una columna */
+} /* Responsive simple: nunca queda “medio cortado”. */
+
+.stack,
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+} /* Evita que los “chips” o links choquen y se descuadren. */
