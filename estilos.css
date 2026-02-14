@@ -1,409 +1,487 @@
+/* ============================
+   Portafolio | Mitsuo (FINAL)
+   Compatible con tu HTML actual:
+   - container / main / hero / grid / proj / about / modal
+   - Tarjetas misma altura por fila
+   - Sin solapes de colores
+   ============================ */
+
+/* ===== 0) Variables ===== */
 :root{
-  --bg: #070B18;
-  --panel: rgba(255,255,255,.06);
-  --panel2: rgba(255,255,255,.08);
-  --text: rgba(255,255,255,.92);
-  --muted: rgba(255,255,255,.68);
-  --line: rgba(255,255,255,.12);
-  --accent: #6C5CE7;
-  --accent2: #22D3EE;
-  --shadow: 0 18px 60px rgba(0,0,0,.45);
-  --radius: 16px;
-  --radius2: 22px;
-  --container: 1080px;
-  --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-}
+  --bg:#070a14; /* Fondo principal: oscuro y elegante */
+  --bg2:#0b1024; /* Fondo secundario: profundidad */
+  --panel:rgba(255,255,255,.06); /* Fondo tarjetas: vidrio suave */
+  --panel2:rgba(255,255,255,.08); /* Hover tarjetas: un poquito más claro */
+  --line:rgba(255,255,255,.10); /* Bordes finitos */
+  --text:rgba(255,255,255,.92); /* Texto principal */
+  --muted:rgba(255,255,255,.72); /* Texto secundario */
+  --muted2:rgba(255,255,255,.55); /* Texto terciario */
+  --accent:#7c5cff; /* Acento violeta */
+  --accent2:#4fd1ff; /* Acento celeste */
+  --radius:18px; /* Redondeo estándar */
+  --shadow:0 18px 48px rgba(0,0,0,.35); /* Sombra premium */
+  --wrap:1100px; /* Ancho máximo del contenido */
+} /* Variables: cambias el “look” tocando solo acá. */
 
-[data-theme="light"]{
-  --bg: #F6F7FB;
-  --panel: rgba(0,0,0,.04);
-  --panel2: rgba(0,0,0,.06);
-  --text: rgba(0,0,0,.90);
-  --muted: rgba(0,0,0,.60);
-  --line: rgba(0,0,0,.12);
-  --shadow: 0 18px 60px rgba(0,0,0,.15);
-}
+/* ===== 1) Reset base ===== */
+*,
+*::before,
+*::after{ box-sizing:border-box; } /* Evita que padding rompa el tamaño de cajas. */
 
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
+html,body{ height:100%; } /* Fondo completo. */
+
 body{
   margin:0;
-  font-family: var(--font);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
   background:
-    radial-gradient(1200px 700px at 20% 0%, rgba(108,92,231,.25), transparent 55%),
-    radial-gradient(900px 600px at 90% 15%, rgba(34,211,238,.16), transparent 55%),
-    var(--bg);
-  color: var(--text);
-}
+    radial-gradient(1200px 700px at 15% 10%, rgba(124,92,255,.18), transparent 60%),
+    radial-gradient(900px 600px at 85% 35%, rgba(79,209,255,.10), transparent 55%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+} /* Fondo con luces suaves, sin “ruido”. */
 
-a{ color: inherit; }
+a{ color:inherit; text-decoration:none; } /* Links sin subrayado por defecto. */
 
+/* ===== 2) Layout container ===== */
 .container{
-  width: min(100%, var(--container));
-  margin-inline:auto;
-  padding: 0 18px;
-}
+  width:100%;
+  max-width:var(--wrap);
+  margin:0 auto;
+  padding:0 18px;
+} /* Tu clase container: centra todo y limita ancho. */
 
+.main{ padding-bottom:36px; } /* Aire abajo, para que no choque el footer. */
+
+/* ===== 3) Topbar ===== */
 .topbar{
-  position: sticky;
+  position:sticky;
   top:0;
-  z-index: 20;
-  backdrop-filter: blur(14px);
-  background: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.10));
-  border-bottom: 1px solid var(--line);
-}
+  z-index:50;
+  backdrop-filter:blur(10px);
+  background:rgba(7,10,20,.65);
+  border-bottom:1px solid rgba(255,255,255,.06);
+} /* Barra fija con blur. */
 
 .topbar__inner{
-  height: 64px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap: 14px;
-}
+  gap:14px;
+  padding:14px 0;
+} /* Alinea marca y nav. */
 
 .brand{
-  display:flex;
+  display:inline-flex;
   align-items:center;
   gap:10px;
-  text-decoration:none;
-  font-weight:700;
-  letter-spacing:.2px;
-}
+  font-weight:800;
+} /* Logo + texto. */
 
 .brand__dot{
-  width:10px; height:10px;
+  width:10px;
+  height:10px;
   border-radius:999px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  box-shadow: 0 0 0 4px rgba(108,92,231,.18);
-}
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 0 0 4px rgba(124,92,255,.12);
+} /* Punto de marca. */
+
+.brand__text{ color:var(--text); } /* Texto marca. */
 
 .nav{
   display:flex;
-  gap: 14px;
   align-items:center;
-}
+  gap:14px;
+} /* Links top. */
 
 .nav a{
-  text-decoration:none;
-  padding: 8px 10px;
-  border-radius: 10px;
-  color: var(--muted);
-}
-.nav a:hover{ background: var(--panel); color: var(--text); }
+  color:var(--muted);
+  padding:8px 10px;
+  border-radius:12px;
+} /* Botoncitos simples. */
 
-.main{ padding: 26px 0 54px; }
+.nav a:hover{
+  color:var(--text);
+  background:rgba(255,255,255,.05);
+} /* Hover. */
 
+/* ===== 4) Botones ===== */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:10px 14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  font-weight:700;
+  cursor:pointer;
+  transition:transform .12s ease, background .12s ease, border .12s ease;
+} /* Botón base. */
+
+.btn:hover{
+  transform:translateY(-1px);
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.18);
+} /* Micro elevación. */
+
+.btn--ghost{
+  background:transparent;
+} /* Botón transparente. */
+
+/* ===== 5) Hero ===== */
 .hero{
   display:grid;
-  grid-template-columns: 1.2fr .8fr;
-  gap: 18px;
-  align-items: start;
-  padding: 18px 0 10px;
-}
+  grid-template-columns: 1.3fr .9fr;
+  gap:18px;
+  align-items:stretch;
+  padding:28px 0 12px;
+} /* 2 columnas en desktop. */
 
 .pill{
-  display:inline-block;
-  margin: 0 0 10px;
-  padding: 8px 12px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  border-radius: 999px;
-  color: var(--muted);
-  font-size: 13px;
-}
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.06);
+  color:var(--muted);
+  margin:0 0 10px 0;
+} /* Etiqueta arriba del título. */
 
-h1{
-  margin: 6px 0 10px;
-  font-size: clamp(34px, 4.3vw, 52px);
-  line-height: 1.05;
-  letter-spacing: -0.6px;
-}
+.hero h1{
+  margin:12px 0 10px 0;
+  font-size:clamp(34px,4vw,48px);
+  line-height:1.05;
+  letter-spacing:-.03em;
+} /* Título grande. */
 
 .lead{
-  margin: 0 0 16px;
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.6;
-  max-width: 58ch;
-}
+  margin:0 0 12px 0;
+  color:var(--muted);
+  line-height:1.6;
+} /* Bajada principal. */
 
-.hero__cta{ display:flex; gap: 10px; flex-wrap: wrap; margin: 8px 0 16px; }
+.hero__cta{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:14px;
+} /* Botones hero. */
 
 .kpis{
   display:grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 10px;
-  margin-top: 6px;
-}
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-top:18px;
+} /* KPIs en 3. */
 
 .kpi{
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 14px 14px;
-  box-shadow: var(--shadow);
-}
+  border-radius:var(--radius);
+  background:var(--panel);
+  border:1px solid var(--line);
+  padding:14px;
+  overflow:hidden;
+} /* Caja KPI. */
 
-.kpi__value{ font-size: 22px; font-weight: 800; }
-.kpi__label{ font-size: 12px; color: var(--muted); margin-top: 4px; }
+.kpi__value{
+  font-size:22px;
+  font-weight:900;
+} /* Número KPI. */
 
-.section{ padding: 28px 0; }
-.section__head{ margin-bottom: 12px; }
-.section__head h2{ margin:0; font-size: 22px; }
-.muted{ color: var(--muted); }
-.small{ font-size: 12px; }
+.kpi__label{
+  color:var(--muted2);
+  font-size:13px;
+  margin-top:4px;
+} /* Texto KPI. */
 
+/* ===== 6) Cards (reutilizables) ===== */
 .card{
-  background: linear-gradient(180deg, var(--panel2), var(--panel));
-  border: 1px solid var(--line);
-  border-radius: var(--radius2);
-  padding: 18px;
-  box-shadow: var(--shadow);
-}
+  position:relative;
+  border-radius:var(--radius);
+  background:var(--panel);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  overflow:hidden; /* CLAVE: recorta gradientes */
+  padding:18px;
+} /* Tarjeta base. */
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:
+    radial-gradient(700px 260px at 20% 0%, rgba(124,92,255,.18), transparent 60%),
+    radial-gradient(600px 260px at 90% 10%, rgba(79,209,255,.12), transparent 55%);
+  pointer-events:none;
+} /* Luz interna. */
+
+.card > *{ position:relative; } /* Contenido arriba del efecto. */
 
 .card--highlight{
-  border-color: rgba(108,92,231,.35);
-  box-shadow: 0 20px 80px rgba(108,92,231,.12), var(--shadow);
-}
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+} /* Card destacada derecha. */
 
-.list{ margin: 10px 0 0; padding-left: 18px; color: var(--muted); }
-.list li{ margin: 8px 0; }
+.card h2, .card h3{
+  margin:0 0 10px 0;
+  letter-spacing:-.01em;
+} /* Titulares en cards. */
 
-.grid{
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
+.muted{ color:var(--muted); } /* Texto suave. */
 
-.proj{
-  border: 1px solid var(--line);
-  border-radius: var(--radius2);
-  background: linear-gradient(180deg, var(--panel2), var(--panel));
-  padding: 16px;
-  box-shadow: var(--shadow);
-  display:flex;
-  flex-direction:column;
-  min-height: 240px;
-}
+.small{ font-size:13px; } /* Texto chico. */
 
-.proj__badge{
-  display:inline-block;
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: rgba(108,92,231,.14);
-  color: var(--text);
-  margin-bottom: 10px;
-}
+.list{
+  margin:0;
+  padding-left:18px;
+  color:var(--muted);
+  line-height:1.6;
+} /* Listas prolijas. */
 
-.proj h3{ margin: 0 0 8px; font-size: 18px; }
-.proj__desc{ margin:0; color: var(--muted); line-height: 1.5; }
+/* ===== 7) Secciones ===== */
+.section{
+  padding:34px 0;
+} /* Espacio consistente. */
 
-.proj__meta{
-  display:flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 14px 0 0;
-}
+.section__head h2{
+  margin:0 0 10px 0;
+  font-size:28px;
+  letter-spacing:-.02em;
+} /* Título sección. */
 
+.section__head p{
+  margin:0 0 12px 0;
+  color:var(--muted);
+  line-height:1.6;
+} /* Texto sección. */
+
+/* ===== 8) Chips / pillbox ===== */
 .chip{
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: transparent;
-  border: 1px solid var(--line);
-  color: var(--muted);
-}
-
-.proj__actions{
-  margin-top: auto;
-  display:flex;
-  gap: 10px;
+  display:inline-flex;
   align-items:center;
-  flex-wrap: wrap;
-  padding-top: 14px;
-}
-
-.btn{
-  appearance:none;
-  border: 1px solid transparent;
-  background: linear-gradient(90deg, var(--accent), #8B5CF6);
-  color: white;
-  padding: 10px 12px;
-  border-radius: 12px;
-  text-decoration:none;
-  font-weight: 700;
-  cursor:pointer;
-  box-shadow: 0 10px 30px rgba(108,92,231,.22);
-}
-
-.btn:hover{ filter: brightness(1.05); }
-
-.btn--ghost{
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--line);
-  box-shadow: none;
-}
-
-.btn--ghost:hover{ background: var(--panel); }
-
-.about{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  color:var(--muted);
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.10);
+} /* Chips para tecnologías/etiquetas. */
 
 .pillbox{
   display:flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
+  flex-wrap:wrap;
+  gap:10px;
+} /* Contenedor de chips. */
 
+/* ===== 9) GRID de proyectos (CLAVE para alturas) ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:16px;
+  align-items:stretch; /* CLAVE: misma altura por fila */
+} /* Tu grid de proyectos. */
+
+/* Proyectos = tarjetas flex para empujar botones abajo */
+.proj{
+  position:relative;
+  display:flex;           /* CLAVE */
+  flex-direction:column;  /* CLAVE */
+  height:100%;            /* CLAVE */
+  border-radius:var(--radius);
+  background:var(--panel);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  overflow:hidden;        /* CLAVE: no se salen los colores */
+  padding:18px;
+} /* Proj card. */
+
+.proj::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:
+    radial-gradient(700px 260px at 20% 0%, rgba(124,92,255,.18), transparent 60%),
+    radial-gradient(600px 260px at 90% 10%, rgba(79,209,255,.12), transparent 55%);
+  pointer-events:none;
+} /* Luz interna en proyectos. */
+
+.proj > *{ position:relative; } /* Contenido sobre el gradiente. */
+
+.proj__top{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+} /* Parte superior. */
+
+.proj__badge{
+  align-self:flex-start;
+  display:inline-flex;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--muted);
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.10);
+} /* Badge tipo “Power BI”. */
+
+.proj h3{
+  margin:0;
+  font-size:20px;
+  letter-spacing:-.01em;
+} /* Título proyecto. */
+
+.proj__desc{
+  margin:0;
+  color:var(--muted);
+  line-height:1.55;
+} /* Descripción. */
+
+.proj__meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+} /* Chips. */
+
+.proj__actions{
+  margin-top:auto; /* CLAVE: botones abajo siempre */
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  padding-top:14px;
+} /* Acciones siempre al fondo. */
+
+/* ===== 10) About (2 columnas) ===== */
+.about{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  align-items:stretch; /* Igual altura */
+  margin-top:14px;
+} /* Bloque “lo que entrego” + “stack”. */
+
+/* Para que estos cards también tengan altura igual */
+.about .card{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+} /* Cards de about a misma altura. */
+
+/* ===== 11) Contacto ===== */
 .contact{
   display:flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:10px;
+} /* Contenedor links. */
 
 .link{
   display:inline-flex;
   align-items:center;
-  gap: 8px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: transparent;
-  text-decoration:none;
-  color: var(--text);
-}
-.link:hover{ background: var(--panel); }
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  color:var(--text);
+} /* Link tipo “pill”. */
 
+.link:hover{
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.18);
+} /* Hover. */
+
+/* IMPORTANTÍSIMO: mailto */
+.contact a[href*="@"]{ } /* (No hace nada extra, pero deja claro el propósito) */
+
+/* ===== 12) Footer ===== */
 .footer{
-  margin-top: 24px;
-  border-top: 1px solid var(--line);
-  padding: 18px 0 0;
-}
+  padding:24px 0 40px;
+  border-top:1px solid rgba(255,255,255,.06);
+} /* Pie. */
 
 .footer__inner{
   display:flex;
   justify-content:space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+  gap:14px;
+  flex-wrap:wrap;
+  color:var(--muted2);
+} /* Responsive footer. */
 
+/* ===== 13) Modal video ===== */
 .modal{
-  position: fixed;
-  inset: 0;
-  display:none;
-}
+  position:fixed;
+  inset:0;
+  display:none; /* Se enciende con JS */
+  z-index:1000;
+} /* Modal apagado por defecto. */
 
-.modal.is-open{ display:block; }
+.modal[aria-hidden="false"]{
+  display:block;
+} /* Modal visible cuando aria-hidden=false. */
 
 .modal__backdrop{
   position:absolute;
   inset:0;
-  background: rgba(0,0,0,.55);
-  backdrop-filter: blur(6px);
-}
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(6px);
+} /* Fondo oscuro. */
 
 .modal__panel{
-  position: relative;
-  width: min(980px, calc(100% - 22px));
-  margin: 7vh auto 0;
-  background: linear-gradient(180deg, var(--panel2), var(--panel));
-  border: 1px solid var(--line);
-  border-radius: var(--radius2);
-  box-shadow: var(--shadow);
+  position:relative;
+  width:min(980px, calc(100% - 28px));
+  margin:60px auto;
+  border-radius:var(--radius);
+  background:rgba(12,16,34,.85);
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:var(--shadow);
   overflow:hidden;
-}
+} /* Panel del modal. */
 
 .modal__head{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap: 10px;
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--line);
-}
-
-.modal__head h3{ margin:0; font-size: 16px; }
+  gap:12px;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+} /* Header modal. */
 
 .iconbtn{
-  width: 36px; height: 36px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--text);
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
   cursor:pointer;
-}
-.iconbtn:hover{ background: var(--panel); }
+} /* Botón cerrar. */
+
+.iconbtn:hover{
+  background:rgba(255,255,255,.10);
+} /* Hover cerrar. */
 
 .modal__body{
-  padding: 14px 16px 16px;
-}
+  padding:16px;
+} /* Cuerpo modal. */
 
 .video{
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  background: rgba(0,0,0,.2);
-}
+  width:100%;
+  height:auto;
+  border-radius:14px;
+  background:#000;
+  border:1px solid rgba(255,255,255,.10);
+} /* Video responsive y prolijo. */
 
+/* ===== 14) Responsive ===== */
 @media (max-width: 980px){
-  .hero{ grid-template-columns: 1fr; }
-  .grid{ grid-template-columns: 1fr; }
-  .about{ grid-template-columns: 1fr; }
-  .nav{ gap: 8px; }
-}
-/* ===== FIX: tarjetas prolijas + colores consistentes ===== */
-
-.card {
-  background: rgba(255, 255, 255, 0.06); /* fondo parejito y sobrio */
-  border: 1px solid rgba(255, 255, 255, 0.10); /* borde sutil */
-  border-radius: 18px; /* esquinas consistentes */
-  overflow: hidden; /* recorta overlays internos (CLAVE) */
-} /* Deja todas las tarjetas con el mismo look y evita que el blur/gradiente se escape. */
-
-.card::before,
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 0; /* que calce exacto dentro de la tarjeta */
-  border-radius: inherit; /* hereda el mismo redondeo */
-  pointer-events: none;
-} /* Esto fuerza a que cualquier “efecto” quede dentro de la tarjeta y no se corra. */
-
-.grid,
-.grid-2,
-.grid-3 {
-  align-items: stretch; /* todas las tarjetas a la misma altura visual */
-} /* Hace que las columnas se vean parejas aunque el texto sea distinto. */
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-} /* Dos columnas robustas: evita desbordes raros. */
-
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-} /* Tres columnas robustas: mismas reglas, más estable. */
-
-@media (max-width: 980px) {
-  .grid-3 { grid-template-columns: 1fr; } /* móvil: una columna */
-  .grid-2 { grid-template-columns: 1fr; } /* móvil: una columna */
-} /* Responsive simple: nunca queda “medio cortado”. */
-
-.stack,
-.contact-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-} /* Evita que los “chips” o links choquen y se descuadren. */
+  .hero{ grid-template-columns:1fr; } /* Hero a 1 col */
+  .kpis{ grid-template-columns:1fr; } /* KPIs a 1 col */
+  .grid{ grid-template-columns:1fr; } /* Proyectos a 1 col */
+  .about{ grid-template-columns:1fr; } /* About a 1 col */
+} /* Ajustes para pantallas chicas. */
