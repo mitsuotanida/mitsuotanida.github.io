@@ -1,12 +1,3 @@
-/* ============================
-   Portafolio | Mitsuo (FINAL)
-   Compatible con tu HTML actual:
-   - container / main / hero / grid / proj / about / modal
-   - Tarjetas misma altura por fila
-   - Sin solapes de colores
-   ============================ */
-
-/* ===== 0) Variables ===== */
 :root{
   --bg:#070a14; /* Fondo principal: oscuro y elegante */
   --bg2:#0b1024; /* Fondo secundario: profundidad */
